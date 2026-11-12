@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>Psico_Gestión</title><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-tertiary-fixed": "#3c0800", "tertiary-fixed": "#ffdad2", "primary": "#245347", "on-secondary": "#ffffff", "outline-variant": "#c0c8c4", "surface-container-low": "#e6f7f2", "surface-tint": "#39675a", "on-tertiary": "#ffffff", "primary-container": "#3d6b5e", "on-primary-fixed": "#002019", "tertiary-container": "#974d3b", "secondary-fixed": "#d7e2ff", "inverse-surface": "#243330", "surface-container-highest": "#d5e6e1", "primary-fixed": "#bbeddc", "on-secondary-fixed-variant": "#374766", "error-container": "#ffdad6", "error": "#ba1a1a", "on-error-container": "#93000a", "on-primary": "#ffffff", "primary-fixed-dim": "#a0d1c1", "outline": "#707975", "tertiary": "#7a3625", "surface-bright": "#ecfdf8", "tertiary-fixed-dim": "#ffb4a2", "on-error": "#ffffff", "on-secondary-fixed": "#091b38", "on-surface": "#0f1e1c", "secondary": "#4e5e7f", "on-tertiary-container": "#ffd6cc", "surface-container": "#e0f2ed", "on-secondary-container": "#4d5d7e", "surface-container-lowest": "#ffffff", "on-primary-container": "#b8e9d9", "on-tertiary-fixed-variant": "#753322", "secondary-container": "#c7d7fd", "on-surface-variant": "#404945", "inverse-primary": "#a0d1c1", "inverse-on-surface": "#e3f5ef", "surface-container-high": "#dbece7", "background": "#ecfdf8", "on-background": "#0f1e1c", "secondary-fixed-dim": "#b6c7ec", "surface": "#ecfdf8", "surface-dim": "#cdded9", "surface-variant": "#d5e6e1", "on-primary-fixed-variant": "#204f43" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "gutter-mobile": "1rem", "gutter": "1.5rem", "space-xl": "2rem", "margin-mobile": "1rem", "space-xs": "0.25rem", "space-md": "1rem", "space-sm": "0.5rem", "margin": "3rem", "margin-tablet": "1.5rem", "space-lg": "1.5rem", "gutter-tablet": "1.25rem" }, fontFamily: { "label-sm": ["Inter"], "body-bold": ["Inter"], "headline-lg-mobile": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"], "title-lg": ["Plus Jakarta Sans"], "title-md": ["Plus Jakarta Sans"], "body-sm": ["Inter"], "headline-md": ["Plus Jakarta Sans"], "label-caps": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "body-base": ["Inter"], "headline-lg": ["Plus Jakarta Sans"] }, fontSize: { "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.02em", fontWeight: "500" }], "body-bold": ["15px", { lineHeight: "24px", letterSpacing: "0em", fontWeight: "600" }], "headline-lg-mobile": ["26px", { lineHeight: "34px", letterSpacing: "-0.01em", fontWeight: "700" }], "display-lg-mobile": ["32px", { lineHeight: "40px", letterSpacing: "-0.015em", fontWeight: "700" }], "title-lg": ["20px", { lineHeight: "28px", letterSpacing: "-0.005em", fontWeight: "600" }], "title-md": ["16px", { lineHeight: "24px", letterSpacing: "0em", fontWeight: "600" }], "body-sm": ["13px", { lineHeight: "20px", letterSpacing: "0.005em", fontWeight: "400" }], "headline-md": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }], "label-caps": ["12px", { lineHeight: "16px", letterSpacing: "0.04em", fontWeight: "700" }], "display-lg": ["44px", { lineHeight: "52px", letterSpacing: "-0.02em", fontWeight: "700" }], "body-base": ["15px", { lineHeight: "24px", letterSpacing: "0em", fontWeight: "400" }], "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.015em", fontWeight: "700" }] } } } };</script></head><body class="bg-background font-body-base text-body-base text-on-surface antialiased min-h-screen flex flex-col justify-between"><header class="fixed top-0 left-0 right-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 max-w-7xl mx-auto px-gutter flex items-center justify-between"><div class="flex items-center gap-space-md"><img alt="Logo moderno y minimalista de Psico_Gestion: isotipo que combina una hoja botánica serena y el símbolo psi o mente con un trazo suave de bienestar mental y salud emocional en tonos verdes salvia y esmeralda suave.. Brand logo. - Primary color: #3d6b5e
+- Font: plusJakartaSans
+- Mode: light
+- Roundness: rounded-md
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VRAzYjirtxLFbf63oTNQCwjho1eVF90pWg3d8Zj0Rqgj-_5jxvkgYF7PQYwjVkDDyvf3R0_dw0Udep_tViIzswW7GMSPHwQOOt-kTOC8snsTeAIps52YdLYLzdWhl6Y_tkdgTT16cYldFzRUhqIr2IcFoM-HmihsiqKcVFtkVzns6iXZUpLa6nGF0iWzq_n158eSBcDOlEL2jAyIJfad7s80kvD-9od8ZlbJAtOsEcx85ZaRHf5U-w7hc"/><span class="font-title-lg text-title-lg text-primary tracking-tight">Psico_Gestión</span></div><nav class="hidden md:flex items-center gap-space-lg" data-active-classes="text-primary font-bold"><a aria-current="page" class="transition-colors text-primary font-bold" data-path="portal-autenticacion" href="#">Acceso Profesional</a><a class="text-on-surface-variant hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="soporte-y-ayuda" href="#">Soporte y Ayuda</a><a class="text-on-surface-variant hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="volver-al-inicio" href="#">Volver al Inicio</a></nav><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm px-space-sm py-1 rounded bg-surface-container"><span class="text-on-surface-variant font-medium">ES</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 flex-1 bg-background flex flex-col justify-center"><div class="flex flex-col w-full">
+<div class="relative w-full overflow-hidden py-space-lg md:py-space-xl">
+<div class="absolute -top-24 -left-20 w-96 h-96 rounded-full bg-primary-fixed/30 blur-3xl pointer-events-none"></div>
+<div class="absolute top-1/2 -right-24 w-80 h-80 rounded-full bg-secondary-fixed/40 blur-3xl pointer-events-none"></div>
+<div class="max-w-7xl mx-auto px-gutter w-full">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg lg:gap-space-xl items-stretch">
+<!-- COLUMNA IZQUIERDA: Atmósfera Terapéutica, Confianza y Propuesta Gratuita -->
+<section class="lg:col-span-6 flex flex-col justify-between rounded-xl bg-surface-container-lowest/90 backdrop-blur-md shadow-sm p-space-lg md:p-space-xl relative overflow-hidden">
+<div class="space-y-space-lg relative z-10">
+<!-- Etiqueta de Confidencialidad -->
+<div class="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-surface-container text-primary font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[16px]">verified_user</span>
+<span>ESPACIO CLÍNICO CERTIFICADO • ACCESO CONFIDENCIAL</span>
+</div>
+<!-- Título y Mensaje Empático -->
+<div class="space-y-space-sm">
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">
+                Tu bienestar emocional en un entorno seguro y confidencial.
+              </h1>
+<p class="font-body-base text-body-base text-on-surface-variant max-w-xl">
+                Acompañamiento psicológico humano, riguroso y adaptado a tu ritmo. Comienza hoy mismo sin barreras y encuentra la serenidad que mereces.
+              </p>
+</div>
+<!-- Destacado Plan: Inicia Gratis -->
+<div class="rounded-xl bg-surface-container-low p-space-md shadow-sm space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[22px]">spa</span>
+<span class="font-title-md text-title-md text-primary font-semibold">Ventajas del Acceso Inicia Gratis</span>
+</div>
+<span class="font-label-caps text-label-caps px-2 py-0.5 rounded-full bg-primary text-on-primary">
+                  100% LIBRE DE COSTE
+                </span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md pt-space-xs">
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface">Sin suscripción inicial ni tarjeta de crédito solicitada.</span>
+</div>
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">auto_stories</span>
+<span class="font-body-sm text-body-sm text-on-surface">1ª consulta de valoración y bitácora clínica de autocuidado.</span>
+</div>
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">lock</span>
+<span class="font-body-sm text-body-sm text-on-surface">Cifrado de grado médico AES-256 (Normas HIPAA / Salud Mental).</span>
+</div>
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">psychology</span>
+<span class="font-body-sm text-body-sm text-on-surface">Red de 350+ terapeutas y psiquiatras colegiados.</span>
+</div>
+</div>
+</div>
+<!-- Card de Testimonio y Calidez Humana -->
+<div class="rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex flex-col sm:flex-row items-center gap-space-md">
+<img class="w-16 h-16 rounded-full object-cover shadow-sm flex-shrink-0" data-alt="Retrato cálido y apacible de una psicóloga profesional de perfil empático sonriendo suavemente en un consultorio con luz natural difusa, plantas de interior verdes y tonos salvia suaves, transmitiendo paz mental, seguridad y escucha atenta." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1v8BJFbrPWmjbxzcxYEAP0CQQ__VMcSlDYruihsCEHJgAXIn_rS-GHEMmzG8PCRD9ZJQVLqP4TahQflvoHWy3of0Q_-kbH4P9ymLFlprP2CdBm8e2RkHuZxDGh8dYZlbRVWMwg6ZNb5q8bnZ1Fa83bgtl_zSgLMu4Vxy2Qi9-SvV_I60aauHA1aMQ-cNLfY9ocDnh1JUaEFOK4aWcafMOtUsTAQdDkDgb3u5saik"/>
+<div class="flex-1 space-y-1 text-center sm:text-left">
+<p class="font-body-sm text-body-sm text-on-surface italic">
+                  "El paso más transformador no es tener todas las respuestas, sino brindarse a uno mismo el espacio digno para comenzar a sanar."
+                </p>
+<div class="flex flex-wrap items-center justify-center sm:justify-start gap-x-2 gap-y-0.5">
+<span class="font-body-bold text-body-bold text-primary">Dra. Helena Navarro</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">• Especialista en Terapia Cognitiva (Col. M-34981)</span>
+</div>
+</div>
+</div>
+<!-- Visual Data / Métrica Clínica en Vivo -->
+<div class="grid grid-cols-3 gap-space-sm pt-space-xs">
+<div class="p-3 rounded bg-surface-container text-center">
+<div class="font-title-lg text-title-lg text-primary font-bold">98.4%</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Confidencialidad Auditada</div>
+</div>
+<div class="p-3 rounded bg-surface-container text-center">
+<div class="font-title-lg text-title-lg text-primary font-bold">350+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Especialistas Activos</div>
+</div>
+<div class="p-3 rounded bg-surface-container text-center">
+<div class="font-title-lg text-title-lg text-primary font-bold">&lt; 2 min</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Activación Inmediata</div>
+</div>
+</div>
+</div>
+<!-- Sellos de Seguridad Médica al pie -->
+<div class="pt-space-lg mt-space-md flex flex-wrap items-center justify-between gap-space-sm text-on-surface-variant">
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[18px] text-primary">encrypted</span>
+<span>Encriptación Grado Clínico</span>
+</div>
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[18px] text-primary">security</span>
+<span>Protocolo HIPAA Compliant</span>
+</div>
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[18px] text-primary">clinical_notes</span>
+<span>Colegios Oficiales Registrados</span>
+</div>
+</div>
+</section>
+<!-- COLUMNA DERECHA: Formulario Dinámico (Registro Gratuito & Acceso) -->
+<section class="lg:col-span-6 flex flex-col justify-center rounded-xl bg-surface-container-lowest shadow-md p-space-lg md:p-space-xl">
+<!-- Pestañas de Cambio de Modo -->
+<div class="p-1 rounded-xl bg-surface-container flex items-center mb-space-md">
+<button class="flex-1 py-2.5 px-3 rounded-lg text-center font-title-md text-title-md transition-all text-on-surface-variant hover:text-on-surface" id="tab-login" onclick="switchAuthMode('login')" type="button">
+              Iniciar Sesión
+            </button>
+<button class="flex-1 py-2.5 px-3 rounded-lg text-center font-title-md text-title-md transition-all bg-surface-container-lowest text-primary shadow-sm font-semibold flex items-center justify-center gap-1.5" id="tab-register" onclick="switchAuthMode('register')" type="button">
+<span>Crear Cuenta</span>
+<span class="px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase bg-secondary-container text-on-secondary-fixed rounded-full">
+                Gratis
+              </span>
+</button>
+</div>
+<!-- Selector de Rol Clínico -->
+<div class="mb-space-md">
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-2">
+              Tipo de Perfil
+            </p>
+<div class="grid grid-cols-2 gap-space-xs">
+<button class="flex items-center justify-center gap-2 p-3 rounded-lg text-left bg-surface-container-low text-primary shadow-sm transition-all" id="role-patient" onclick="setRole('patient')" type="button">
+<span class="material-symbols-outlined text-[20px]">person_heart</span>
+<span class="font-body-bold text-body-bold text-sm">Soy Paciente</span>
+</button>
+<button class="flex items-center justify-center gap-2 p-3 rounded-lg text-left bg-surface-container text-on-surface-variant transition-all hover:bg-surface-container-high" id="role-therapist" onclick="setRole('therapist')" type="button">
+<span class="material-symbols-outlined text-[20px]">stethoscope</span>
+<span class="font-body-bold text-body-bold text-sm">Soy Terapeuta</span>
+</button>
+</div>
+</div>
+<!-- Botones de Acceso Social Rápido -->
+<div class="grid grid-cols-2 gap-space-sm mb-space-md">
+<button class="flex items-center justify-center gap-2 py-3 px-4 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors font-body-bold text-body-bold text-on-surface text-sm shadow-sm" type="button">
+<svg class="w-4 h-4" viewbox="0 0 24 24">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"></path>
+</svg>
+<span>Google</span>
+</button>
+<button class="flex items-center justify-center gap-2 py-3 px-4 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors font-body-bold text-body-bold text-on-surface text-sm shadow-sm" type="button">
+<svg class="w-4 h-4 fill-current" viewbox="0 0 24 24">
+<path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.36c.64-.78 1.08-1.86.96-2.94-1 .04-2.13.67-2.8 1.45-.58.67-1.1 1.76-.96 2.81 1.11.09 2.18-.57 2.8-1.32z"></path>
+</svg>
+<span>Apple</span>
+</button>
+</div>
+<!-- Separador -->
+<div class="relative flex items-center justify-center mb-space-md">
+<div class="w-full h-px bg-surface-container-high"></div>
+<span class="absolute px-3 bg-surface-container-lowest font-label-sm text-label-sm text-on-surface-variant">
+              o con tu correo electrónico
+            </span>
+</div>
+<!-- Formulario Dinámico -->
+<form class="space-y-4" id="auth-form" onsubmit="event.preventDefault();">
+<!-- Campo Nombre (Solo visible en Registro) -->
+<div class="space-y-1" id="field-name">
+<label class="font-label-caps text-label-caps text-on-surface-variant" for="user-name">
+                Nombre Completo
+              </label>
+<div class="relative">
+<input class="w-full px-4 py-3 rounded-lg bg-surface-container-low text-on-surface placeholder:text-outline font-body-base text-body-base focus:bg-surface-container-lowest focus:outline-none focus:shadow-md transition-all pl-11" id="user-name" placeholder="Ej. Lucía Martínez" type="text"/>
+<span class="material-symbols-outlined absolute left-3.5 top-3 text-[20px] text-outline">badge</span>
+</div>
+</div>
+<!-- Campo Correo Electrónico -->
+<div class="space-y-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant" for="user-email">
+                Correo Electrónico
+              </label>
+<div class="relative">
+<input class="w-full px-4 py-3 rounded-lg bg-surface-container-low text-on-surface placeholder:text-outline font-body-base text-body-base focus:bg-surface-container-lowest focus:outline-none focus:shadow-md transition-all pl-11" id="user-email" placeholder="nombre@ejemplo.com" required="" type="email"/>
+<span class="material-symbols-outlined absolute left-3.5 top-3 text-[20px] text-outline">mail</span>
+</div>
+</div>
+<!-- Campo Contraseña -->
+<div class="space-y-1">
+<div class="flex items-center justify-between">
+<label class="font-label-caps text-label-caps text-on-surface-variant" for="user-password">
+                  Contraseña
+                </label>
+<a class="hidden font-body-sm text-body-sm text-primary hover:underline font-medium" href="#" id="forgot-password-link">
+                  ¿Olvidaste tu contraseña?
+                </a>
+</div>
+<div class="relative">
+<input class="w-full px-4 py-3 rounded-lg bg-surface-container-low text-on-surface placeholder:text-outline font-body-base text-body-base focus:bg-surface-container-lowest focus:outline-none focus:shadow-md transition-all pl-11 pr-11" id="user-password" oninput="checkPasswordStrength(this.value)" placeholder="••••••••••••" required="" type="password"/>
+<span class="material-symbols-outlined absolute left-3.5 top-3 text-[20px] text-outline">lock_open</span>
+<button class="absolute right-3.5 top-3 text-outline hover:text-on-surface transition-colors" onclick="togglePasswordVisibility()" type="button">
+<span class="material-symbols-outlined text-[20px]" id="eye-icon">visibility</span>
+</button>
+</div>
+<!-- Indicador de Fortaleza de Contraseña (Solo en Registro) -->
+<div class="pt-1.5 space-y-1" id="password-strength-box">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>Seguridad:</span>
+<span class="font-medium text-primary" id="strength-label">Ingresa contraseña</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden flex gap-1">
+<div class="h-full w-1/3 bg-outline-variant transition-all rounded-full" id="strength-bar-1"></div>
+<div class="h-full w-1/3 bg-outline-variant transition-all rounded-full" id="strength-bar-2"></div>
+<div class="h-full w-1/3 bg-outline-variant transition-all rounded-full" id="strength-bar-3"></div>
+</div>
+</div>
+</div>
+<!-- Checkbox de Consentimiento Informado (Solo en Registro) -->
+<div class="pt-1" id="consent-box">
+<label class="flex items-start gap-2.5 cursor-pointer select-none">
+<input checked="" class="mt-1 w-4 h-4 rounded text-primary focus:ring-0 cursor-pointer" id="consent-check" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant leading-tight">
+                  Acepto el <a class="text-primary underline" href="#">Consentimiento Informado Clínico</a> y los términos de confidencialidad médica conforme a la Ley de Salud Mental y HIPAA.
+                </span>
+</label>
+</div>
+<!-- Botón CTA Principal -->
+<div class="pt-2">
+<button class="w-full py-3.5 px-6 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-body-bold text-body-bold shadow-md transition-all flex items-center justify-center gap-2" id="submit-btn" type="submit">
+<span id="submit-text">Inicia Gratis - Crear Cuenta</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</form>
+<!-- Disclaimer de Privacidad Médica -->
+<div class="mt-space-md p-3 rounded-lg bg-surface-container-low/60 flex items-start gap-2.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">verified</span>
+<p class="font-body-sm text-body-sm">
+              Tus datos de salud, notas de sesión y consultas están protegidos mediante cifrado punto a punto. Jamás serán vendidos ni transferidos a terceros.
+            </p>
+</div>
+<!-- Toggle Rápido al Pie del Formulario -->
+<div class="mt-space-md text-center font-body-sm text-body-sm text-on-surface-variant">
+<span id="toggle-prompt">¿Ya posees un expediente o cuenta?</span>
+<button class="font-body-bold text-body-bold text-primary hover:underline ml-1" id="toggle-action-btn" onclick="toggleModeAlternate()" type="button">
+              Inicia sesión aquí
+            </button>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+<script>
+  let currentMode = 'register';
+  let currentRole = 'patient';
+
+  function switchAuthMode(mode) {
+    currentMode = mode;
+    const tabLogin = document.getElementById('tab-login');
+    const tabRegister = document.getElementById('tab-register');
+    const fieldName = document.getElementById('field-name');
+    const strengthBox = document.getElementById('password-strength-box');
+    const consentBox = document.getElementById('consent-box');
+    const submitText = document.getElementById('submit-text');
+    const forgotPass = document.getElementById('forgot-password-link');
+    const togglePrompt = document.getElementById('toggle-prompt');
+    const toggleActionBtn = document.getElementById('toggle-action-btn');
+
+    if (mode === 'login') {
+      tabLogin.className = 'flex-1 py-2.5 px-3 rounded-lg text-center font-title-md text-title-md transition-all bg-surface-container-lowest text-primary shadow-sm font-semibold';
+      tabRegister.className = 'flex-1 py-2.5 px-3 rounded-lg text-center font-title-md text-title-md transition-all text-on-surface-variant hover:text-on-surface flex items-center justify-center gap-1.5';
+      
+      fieldName.classList.add('hidden');
+      strengthBox.classList.add('hidden');
+      consentBox.classList.add('hidden');
+      forgotPass.classList.remove('hidden');
+
+      submitText.textContent = currentRole === 'patient' ? 'Acceder a mi Portal de Salud' : 'Acceder al Panel Clínico';
+      togglePrompt.textContent = '¿Primera vez en Psico_Gestión?';
+      toggleActionBtn.textContent = 'Inicia gratis aquí';
+    } else {
+      tabRegister.className = 'flex-1 py-2.5 px-3 rounded-lg text-center font-title-md text-title-md transition-all bg-surface-container-lowest text-primary shadow-sm font-semibold flex items-center justify-center gap-1.5';
+      tabLogin.className = 'flex-1 py-2.5 px-3 rounded-lg text-center font-title-md text-title-md transition-all text-on-surface-variant hover:text-on-surface';
+
+      fieldName.classList.remove('hidden');
+      strengthBox.classList.remove('hidden');
+      consentBox.classList.remove('hidden');
+      forgotPass.classList.add('hidden');
+
+      submitText.textContent = 'Inicia Gratis - Crear Cuenta';
+      togglePrompt.textContent = '¿Ya posees un expediente o cuenta?';
+      toggleActionBtn.textContent = 'Inicia sesión aquí';
+    }
+  }
+
+  function setRole(role) {
+    currentRole = role;
+    const btnPatient = document.getElementById('role-patient');
+    const btnTherapist = document.getElementById('role-therapist');
+    const submitText = document.getElementById('submit-text');
+
+    if (role === 'patient') {
+      btnPatient.className = 'flex items-center justify-center gap-2 p-3 rounded-lg text-left bg-surface-container-low text-primary shadow-sm transition-all';
+      btnTherapist.className = 'flex items-center justify-center gap-2 p-3 rounded-lg text-left bg-surface-container text-on-surface-variant transition-all hover:bg-surface-container-high';
+    } else {
+      btnTherapist.className = 'flex items-center justify-center gap-2 p-3 rounded-lg text-left bg-surface-container-low text-primary shadow-sm transition-all';
+      btnPatient.className = 'flex items-center justify-center gap-2 p-3 rounded-lg text-left bg-surface-container text-on-surface-variant transition-all hover:bg-surface-container-high';
+    }
+
+    if (currentMode === 'login') {
+      submitText.textContent = role === 'patient' ? 'Acceder a mi Portal de Salud' : 'Acceder al Panel Clínico';
+    }
+  }
+
+  function toggleModeAlternate() {
+    switchAuthMode(currentMode === 'register' ? 'login' : 'register');
+  }
+
+  function togglePasswordVisibility() {
+    const pwdInput = document.getElementById('user-password');
+    const icon = document.getElementById('eye-icon');
+    if (pwdInput.type === 'password') {
+      pwdInput.type = 'text';
+      icon.textContent = 'visibility_off';
+    } else {
+      pwdInput.type = 'password';
+      icon.textContent = 'visibility';
+    }
+  }
+
+  function checkPasswordStrength(val) {
+    const bar1 = document.getElementById('strength-bar-1');
+    const bar2 = document.getElementById('strength-bar-2');
+    const bar3 = document.getElementById('strength-bar-3');
+    const label = document.getElementById('strength-label');
+
+    // Reset default color
+    bar1.className = 'h-full w-1/3 bg-outline-variant transition-all rounded-full';
+    bar2.className = 'h-full w-1/3 bg-outline-variant transition-all rounded-full';
+    bar3.className = 'h-full w-1/3 bg-outline-variant transition-all rounded-full';
+
+    if (!val || val.length === 0) {
+      label.textContent = 'Ingresa contraseña';
+      label.className = 'font-medium text-on-surface-variant';
+      return;
+    }
+
+    if (val.length < 6) {
+      bar1.className = 'h-full w-1/3 bg-tertiary-container transition-all rounded-full';
+      label.textContent = 'Débil';
+      label.className = 'font-medium text-tertiary';
+    } else if (val.length < 10) {
+      bar1.className = 'h-full w-1/3 bg-primary-fixed-dim transition-all rounded-full';
+      bar2.className = 'h-full w-1/3 bg-primary-fixed-dim transition-all rounded-full';
+      label.textContent = 'Moderada';
+      label.className = 'font-medium text-primary';
+    } else {
+      bar1.className = 'h-full w-1/3 bg-primary transition-all rounded-full';
+      bar2.className = 'h-full w-1/3 bg-primary transition-all rounded-full';
+      bar3.className = 'h-full w-1/3 bg-primary transition-all rounded-full';
+      label.textContent = 'Óptima para historia médica';
+      label.className = 'font-medium text-primary font-bold';
+    }
+  }
+</script></main><footer class="w-full bg-surface-container-low/70 py-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.02)]"><div class="max-w-7xl mx-auto px-gutter flex flex-col md:flex-row items-center justify-between gap-space-md text-on-surface-variant font-body-sm text-body-sm"><div class="flex flex-wrap items-center justify-center md:justify-start gap-x-space-lg gap-y-space-xs"><a class="hover:text-primary transition-colors" data-path="privacidad-confidencialidad" href="#">Privacidad y Confidencialidad Médica</a><a class="hover:text-primary transition-colors" data-path="terminos-servicio" href="#">Términos del Servicio</a><a class="hover:text-primary transition-colors" data-path="seguridad-cifrado" href="#">Seguridad HIPAA/Cifrado</a></div><div class="text-center md:text-right font-label-sm text-label-sm">© 2024 Psico_Gestión. Plataforma Médica Segura.</div></div></footer></body></html>

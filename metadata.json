@@ -1,0 +1,8 @@
+{
+  "name": "Psico_Gestión",
+  "description": "Plataforma de Salud Mental, Tele-psicología y Gestión Clínica Integral.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
