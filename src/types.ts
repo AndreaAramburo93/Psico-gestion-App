@@ -92,5 +92,18 @@ export interface ReminderLogItem {
   appointmentTime: string;
   channel: 'WhatsApp' | 'Email' | 'SMS';
   sentAt: string;
-  status: 'Confirmado por paciente' | 'Entregado' | 'Programado';
+  status: 'Confirmado por paciente' | 'Entregado' | 'Programado' | 'Enviado vía Gmail';
+  recipientEmail?: string;
 }
+
+export interface AppointmentEmailDraft {
+  patientName: string;
+  specialistName: string;
+  dateLabel: string;
+  timeLabel: string;
+  modalityLabel: string;
+  reason: string;
+  defaultEmail?: string;
+  extraNotes?: string;
+}
+

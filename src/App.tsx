@@ -4,24 +4,35 @@
  */
 
 import { useState, useCallback, useEffect } from 'react';
+import { User } from 'firebase/auth';
 import { LayoutHeader } from './components/LayoutHeader';
 import { LayoutFooter } from './components/LayoutFooter';
+import { EmailReminderConfirmModal } from './components/EmailReminderConfirmModal';
 import {
   INITIAL_BILLING_RECORDS,
   INITIAL_CALENDAR_APPOINTMENTS,
   INITIAL_NOTIFICATION_RULES,
+  INITIAL_REMINDER_LOGS,
   INITIAL_SOAP_NOTES,
   INITIAL_SPECIALISTS,
 } from './data/mockData';
 import {
+  AppointmentEmailDraft,
   BillingRecord,
   CalendarAppointment,
   NotificationRule,
   PortalMode,
+  ReminderLogItem,
   ScreenRoute,
   SoapNote,
   Specialist,
 } from './types';
+import {
+  googleSignIn,
+  initAuth,
+  logoutGoogle,
+  sendAppointmentReminderEmail,
+} from './services/gmailService';
 import { AvailabilityBillingScreen } from './screens/AvailabilityBillingScreen';
 import { DirectoryScreen } from './screens/DirectoryScreen';
 import { ClinicalHistoryScreen } from './screens/ClinicalHistoryScreen';
@@ -56,7 +67,17 @@ export default function App() {
   const [notificationRules, setNotificationRules] = useState<NotificationRule[]>(
     INITIAL_NOTIFICATION_RULES
   );
+  const [reminderLogs, setReminderLogs] = useState<ReminderLogItem[]>(INITIAL_REMINDER_LOGS);
   const [unreadCount, setUnreadCount] = useState<number>(2);
+
+  // Google / Gmail auth state (access token is kept strictly in memory inside gmailService)
+  const [googleUser, setGoogleUser] = useState<User | null>(null);
+  const [gmailConnected, setGmailConnected] = useState<boolean>(false);
+  const [isSigningInGoogle, setIsSigningInGoogle] = useState<boolean>(false);
+
+  // Explicit confirmation modal state for sending appointment reminder emails
+  const [pendingEmailDraft, setPendingEmailDraft] = useState<AppointmentEmailDraft | null>(null);
+  const [isSendingEmail, setIsSendingEmail] = useState<boolean>(false);
 
   // Toast feedback
   const [toast, setToast] = useState<ToastState>({
@@ -70,12 +91,105 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    const unsubscribe = initAuth(
+      (user) => {
+        setGoogleUser(user);
+        setGmailConnected(true);
+      },
+      () => {
+        setGoogleUser(null);
+        setGmailConnected(false);
+      }
+    );
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
     if (!toast.visible) return;
     const timer = setTimeout(() => {
       setToast((prev) => ({ ...prev, visible: false }));
-    }, 3600);
+    }, 4000);
     return () => clearTimeout(timer);
   }, [toast.visible, toast.message]);
+
+  const handleGoogleSignIn = useCallback(async (): Promise<boolean> => {
+    setIsSigningInGoogle(true);
+    try {
+      const result = await googleSignIn();
+      setGoogleUser(result.user);
+      setGmailConnected(true);
+      showToast(
+        `Cuenta de Gmail conectada (${result.user.email || 'Google'}). Ya puedes enviar recordaciones de citas.`,
+        'mark_email_read'
+      );
+      return true;
+    } catch (err: unknown) {
+      const msg =
+        err instanceof Error && err.message.includes('popup-closed-by-user')
+          ? 'Inicio de sesión con Google cancelado.'
+          : 'No se pudo conectar con Google. Intenta nuevamente.';
+      showToast(msg, 'warning');
+      return false;
+    } finally {
+      setIsSigningInGoogle(false);
+    }
+  }, [showToast]);
+
+  const handleGoogleLogout = useCallback(async () => {
+    await logoutGoogle();
+    setGoogleUser(null);
+    setGmailConnected(false);
+    showToast('Cuenta de Gmail desconectada de forma segura.', 'logout');
+  }, [showToast]);
+
+  const handleRequestEmailReminder = useCallback((draft: AppointmentEmailDraft) => {
+    setPendingEmailDraft(draft);
+  }, []);
+
+  const handleConfirmSendEmail = useCallback(
+    async (recipientEmail: string, subject: string, extraNotes: string) => {
+      if (!pendingEmailDraft) return;
+      setIsSendingEmail(true);
+      try {
+        const finalDraft: AppointmentEmailDraft = {
+          ...pendingEmailDraft,
+          extraNotes,
+        };
+        await sendAppointmentReminderEmail(recipientEmail, subject, finalDraft);
+        const newLog: ReminderLogItem = {
+          id: `gmail-${Date.now()}`,
+          patientName: finalDraft.patientName,
+          appointmentTime: `${finalDraft.dateLabel} • ${finalDraft.timeLabel}`,
+          channel: 'Email',
+          sentAt: 'Hace unos segundos',
+          status: 'Enviado vía Gmail',
+          recipientEmail,
+        };
+        setReminderLogs((prev) => [newLog, ...prev]);
+        setPendingEmailDraft(null);
+        showToast(
+          `Correo de recordación enviado con éxito a ${recipientEmail} vía Gmail.`,
+          'mark_email_read'
+        );
+      } catch (err: unknown) {
+        if (err instanceof Error && (err.message === 'NEEDS_AUTH' || err.message === 'AUTH_EXPIRED')) {
+          setGmailConnected(false);
+          showToast(
+            'Tu sesión de Gmail expiró o requiere permiso. Conecta tu cuenta de Google nuevamente.',
+            'lock'
+          );
+        } else {
+          showToast(
+            err instanceof Error ? err.message : 'Error al enviar el correo de recordación.',
+            'error'
+          );
+        }
+      } finally {
+        setIsSendingEmail(false);
+      }
+    },
+    [pendingEmailDraft, showToast]
+  );
 
   const handleNavigate = useCallback((route: ScreenRoute) => {
     setActiveRoute(route);
@@ -130,6 +244,10 @@ export default function App() {
     );
   }, []);
 
+  const handleAddReminderLog = useCallback((item: ReminderLogItem) => {
+    setReminderLogs((prev) => [item, ...prev]);
+  }, []);
+
   const handleAuthenticated = useCallback(
     (mode: PortalMode, destination: ScreenRoute, userName?: string) => {
       setPortalMode(mode);
@@ -162,6 +280,7 @@ export default function App() {
             onSelectSpecialistProfile={handleSelectSpecialistProfile}
             onNavigate={handleNavigate}
             onShowToast={showToast}
+            onRequestEmailReminder={handleRequestEmailReminder}
           />
         );
       case 'historia-clinica-y-evolucion':
@@ -175,10 +294,7 @@ export default function App() {
         );
       case 'gestion-y-reprogramacion-de-citas':
         return (
-          <AppointmentManagementScreen
-            onShowToast={showToast}
-            onNavigate={handleNavigate}
-          />
+          <AppointmentManagementScreen onShowToast={showToast} onNavigate={handleNavigate} />
         );
       case 'agenda-y-calendario-terapeutico':
         return (
@@ -187,14 +303,13 @@ export default function App() {
             onAddAppointment={handleAddCalendarAppointment}
             onNavigate={handleNavigate}
             onShowToast={showToast}
+            onRequestEmailReminder={handleRequestEmailReminder}
           />
         );
       case 'mis-citas-paciente':
         return <PatientHomeScreen onNavigate={handleNavigate} onShowToast={showToast} />;
       case 'proximas-citas':
-        return (
-          <UpcomingAppointmentsScreen onNavigate={handleNavigate} onShowToast={showToast} />
-        );
+        return <UpcomingAppointmentsScreen onNavigate={handleNavigate} onShowToast={showToast} />;
       case 'mi-perfil-de-paciente':
         return (
           <PatientProfileScreen
@@ -209,13 +324,23 @@ export default function App() {
             specialist={selectedSpecialist}
             onNavigate={handleNavigate}
             onShowToast={showToast}
+            onRequestEmailReminder={handleRequestEmailReminder}
           />
         );
       case 'recordatorios-y-notificaciones':
         return (
           <RemindersNotificationsScreen
             rules={notificationRules}
+            logs={reminderLogs}
+            gmailConnected={gmailConnected}
+            connectedEmail={googleUser?.email || null}
+            isSigningInGoogle={isSigningInGoogle}
+            onGoogleSignIn={async () => {
+              await handleGoogleSignIn();
+            }}
             onToggleRule={handleToggleNotificationRule}
+            onAddLog={handleAddReminderLog}
+            onRequestEmailReminder={handleRequestEmailReminder}
             onShowToast={showToast}
           />
         );
@@ -223,6 +348,7 @@ export default function App() {
         return (
           <AuthPortalScreen
             onAuthenticated={handleAuthenticated}
+            onGoogleSignIn={handleGoogleSignIn}
             onShowToast={showToast}
           />
         );
@@ -232,6 +358,7 @@ export default function App() {
             onSelectSpecialistProfile={handleSelectSpecialistProfile}
             onNavigate={handleNavigate}
             onShowToast={showToast}
+            onRequestEmailReminder={handleRequestEmailReminder}
           />
         );
     }
@@ -250,6 +377,13 @@ export default function App() {
           setUnreadCount(0);
           showToast('Todas las notificaciones marcadas como leídas.', 'done_all');
         }}
+        gmailConnected={gmailConnected}
+        connectedEmail={googleUser?.email || null}
+        isSigningInGoogle={isSigningInGoogle}
+        onGoogleSignIn={async () => {
+          await handleGoogleSignIn();
+        }}
+        onGoogleLogout={handleGoogleLogout}
       />
 
       <main
@@ -261,6 +395,23 @@ export default function App() {
       </main>
 
       <LayoutFooter activeRoute={activeRoute} onShowToast={showToast} />
+
+      {/* Explicit Confirmation Modal for Gmail Appointment Reminder Sending */}
+      <EmailReminderConfirmModal
+        draft={pendingEmailDraft}
+        gmailConnected={gmailConnected}
+        connectedEmail={googleUser?.email || null}
+        isSigningIn={isSigningInGoogle}
+        isSending={isSendingEmail}
+        onGoogleSignIn={async () => {
+          await handleGoogleSignIn();
+        }}
+        onConfirmSend={handleConfirmSendEmail}
+        onCancel={() => {
+          setPendingEmailDraft(null);
+          showToast('Cita conservada en agenda sin enviar correo adicional.', 'info');
+        }}
+      />
 
       {/* Floating Notification Toast */}
       {toast.visible && (

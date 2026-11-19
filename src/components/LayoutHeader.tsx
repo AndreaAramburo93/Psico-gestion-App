@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { IMAGES } from '../data/mockData';
 import { PortalMode, ScreenRoute } from '../types';
 import { SafeImage } from './SafeImage';
+import { GoogleSignInButton } from './GoogleSignInButton';
 
 interface LayoutHeaderProps {
   portalMode: PortalMode;
@@ -11,6 +12,11 @@ interface LayoutHeaderProps {
   onShowToast: (msg: string, icon?: string) => void;
   unreadCount: number;
   onClearNotifications: () => void;
+  gmailConnected: boolean;
+  connectedEmail: string | null;
+  isSigningInGoogle: boolean;
+  onGoogleSignIn: () => Promise<void>;
+  onGoogleLogout: () => Promise<void>;
 }
 
 const CLINICAL_NAV: { route: ScreenRoute; label: string }[] = [
@@ -39,6 +45,11 @@ export const LayoutHeader: React.FC<LayoutHeaderProps> = ({
   onShowToast,
   unreadCount,
   onClearNotifications,
+  gmailConnected,
+  connectedEmail,
+  isSigningInGoogle,
+  onGoogleSignIn,
+  onGoogleLogout,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showNotifMenu, setShowNotifMenu] = useState(false);
@@ -225,6 +236,28 @@ export const LayoutHeader: React.FC<LayoutHeaderProps> = ({
             </button>
           </div>
 
+          {/* Gmail Google Auth Button / Status */}
+          <div className="hidden lg:flex items-center">
+            {gmailConnected ? (
+              <button
+                type="button"
+                onClick={() => onNavigate('recordatorios-y-notificaciones')}
+                title={`Gmail conectado: ${connectedEmail || ''}`}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#E8F5E9] text-[#2E7D32] text-label-sm font-semibold hover:opacity-90 transition-opacity whitespace-nowrap"
+              >
+                <span className="material-symbols-outlined text-[16px]">mark_email_read</span>
+                <span>Gmail activo</span>
+              </button>
+            ) : (
+              <GoogleSignInButton
+                onClick={onGoogleSignIn}
+                loading={isSigningInGoogle}
+                label="Sign in with Google"
+                compact
+              />
+            )}
+          </div>
+
           {/* Notifications Trigger */}
           <div className="relative">
             <button
@@ -354,6 +387,32 @@ export const LayoutHeader: React.FC<LayoutHeaderProps> = ({
                   <span className="material-symbols-outlined text-[18px]">login</span>
                   <span>Portal de Acceso / Registro</span>
                 </button>
+                <div className="border-t border-surface-variant my-1" />
+                {gmailConnected ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowProfileMenu(false);
+                      void onGoogleLogout();
+                    }}
+                    className="w-full text-left px-3 py-2 rounded-lg text-body-sm text-error hover:bg-error-container/40 flex items-center gap-2"
+                  >
+                    <span className="material-symbols-outlined text-[18px]">logout</span>
+                    <span className="truncate">Desconectar Gmail</span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowProfileMenu(false);
+                      void onGoogleSignIn();
+                    }}
+                    className="w-full text-left px-3 py-2 rounded-lg text-body-sm text-primary hover:bg-surface-container-low flex items-center gap-2"
+                  >
+                    <span className="material-symbols-outlined text-[18px]">mail</span>
+                    <span>Conectar Gmail (Google)</span>
+                  </button>
+                )}
               </div>
             )}
           </div>

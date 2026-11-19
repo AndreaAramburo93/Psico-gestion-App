@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { INITIAL_SPECIALISTS } from '../data/mockData';
-import { ScreenRoute, Specialist } from '../types';
+import { AppointmentEmailDraft, ScreenRoute, Specialist } from '../types';
 import { SafeImage } from '../components/SafeImage';
 
 interface DirectoryScreenProps {
   onSelectSpecialistProfile: (specialist: Specialist) => void;
   onNavigate: (route: ScreenRoute) => void;
   onShowToast: (msg: string, icon?: string) => void;
+  onRequestEmailReminder: (draft: AppointmentEmailDraft) => void;
 }
 
 const QUICK_DAYS = [
@@ -29,6 +30,7 @@ const QUICK_SLOTS = [
 export const DirectoryScreen: React.FC<DirectoryScreenProps> = ({
   onSelectSpecialistProfile,
   onShowToast,
+  onRequestEmailReminder,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [modalityFilter, setModalityFilter] = useState<'all' | 'online' | 'presencial' | 'hibrido'>('all');
@@ -66,10 +68,20 @@ export const DirectoryScreen: React.FC<DirectoryScreenProps> = ({
   });
 
   const handleBookQuickSlot = () => {
+    const dayObj = QUICK_DAYS.find((d) => d.key === selectedDay);
+    const dateLabel = dayObj ? `${dayObj.weekday} ${dayObj.dayNum} de Octubre, 2024` : `${selectedDay} Oct, 2024`;
     onShowToast(
-      `¡Cita pre-agendada con ${selectedDoctor.name} el ${selectedDay} Oct a las ${selectedSlot}! Confirmación enviada por WhatsApp y correo.`,
+      `¡Cita agendada con ${selectedDoctor.name} el ${dateLabel} a las ${selectedSlot}!`,
       'task_alt'
     );
+    onRequestEmailReminder({
+      patientName: 'Camila Morales Valencia',
+      specialistName: selectedDoctor.name,
+      dateLabel,
+      timeLabel: selectedSlot,
+      modalityLabel: selectedDoctor.modalityLabel,
+      reason: consultReason,
+    });
   };
 
   return (

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { IMAGES, INITIAL_SPECIALISTS } from '../data/mockData';
-import { ScreenRoute, Specialist } from '../types';
+import { AppointmentEmailDraft, ScreenRoute, Specialist } from '../types';
 import { SafeImage } from '../components/SafeImage';
 
 interface SpecialistProfileScreenProps {
   specialist: Specialist | null;
   onNavigate: (route: ScreenRoute) => void;
   onShowToast: (msg: string, icon?: string) => void;
+  onRequestEmailReminder: (draft: AppointmentEmailDraft) => void;
 }
 
 const TESTIMONIALS = [
@@ -58,6 +59,7 @@ export const SpecialistProfileScreen: React.FC<SpecialistProfileScreenProps> = (
   specialist,
   onNavigate,
   onShowToast,
+  onRequestEmailReminder,
 }) => {
   const activeSpecialist = specialist || INITIAL_SPECIALISTS[1];
   const heroAvatar =
@@ -84,12 +86,29 @@ export const SpecialistProfileScreen: React.FC<SpecialistProfileScreenProps> = (
       (reviewFilter === 'Empatía Terapéutica' && rev.tags.includes('#Empatía'))
   );
 
+  const reasonLabels: Record<string, string> = {
+    inicial: 'Consulta Inicial • Evaluación Diagnóstica',
+    seguimiento: 'Sesión de Seguimiento Terapéutico',
+    pareja: 'Consulta de Pareja / Familiar',
+    orientacion: 'Sesión Breve de Orientación Emocional',
+  };
+
   const handleConfirmBooking = () => {
+    const modalityLabel =
+      modality === 'online' ? 'Online (Sala Segura Meet E2E)' : 'Presencial (Consultorio Calle 93)';
+    const dateLabel = `${selectedDay} de ${monthLabel}`;
     onShowToast(
-      `Sesión ${modality === 'online' ? 'Online' : 'Presencial'} reservada con ${displayName} para el ${selectedDay} de Oct a las ${selectedSlot}.`,
+      `Sesión ${modality === 'online' ? 'Online' : 'Presencial'} reservada con ${displayName} para el ${dateLabel} a las ${selectedSlot}.`,
       'event_available'
     );
-    onNavigate('proximas-citas');
+    onRequestEmailReminder({
+      patientName: 'Camila Morales Valencia',
+      specialistName: displayName,
+      dateLabel,
+      timeLabel: selectedSlot,
+      modalityLabel,
+      reason: reasonLabels[consultReason] || 'Sesión Psicológica Individual',
+    });
   };
 
   return (

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IMAGES } from '../data/mockData';
-import { CalendarAppointment, ScreenRoute } from '../types';
+import { AppointmentEmailDraft, CalendarAppointment, ScreenRoute } from '../types';
 import { SafeImage } from '../components/SafeImage';
 
 interface TherapistCalendarScreenProps {
@@ -8,6 +8,7 @@ interface TherapistCalendarScreenProps {
   onAddAppointment: (appt: CalendarAppointment) => void;
   onNavigate: (route: ScreenRoute) => void;
   onShowToast: (msg: string, icon?: string) => void;
+  onRequestEmailReminder: (draft: AppointmentEmailDraft) => void;
 }
 
 const DAYS = [
@@ -26,6 +27,7 @@ export const TherapistCalendarScreen: React.FC<TherapistCalendarScreenProps> = (
   onAddAppointment,
   onNavigate,
   onShowToast,
+  onRequestEmailReminder,
 }) => {
   const [viewMode, setViewMode] = useState<'Semana' | 'Día' | 'Mes' | 'Lista de Pacientes'>('Semana');
   const [weekOffset, setWeekOffset] = useState(0);
@@ -37,6 +39,7 @@ export const TherapistCalendarScreen: React.FC<TherapistCalendarScreenProps> = (
   // Modal states for "+ Bloquear Horario" and "+ Nueva Cita Manual"
   const [modalMode, setModalMode] = useState<'none' | 'block' | 'new-appointment'>('none');
   const [formPatient, setFormPatient] = useState('');
+  const [formPatientEmail, setFormPatientEmail] = useState('');
   const [formSubtitle, setFormSubtitle] = useState('Sesión Individual TCC');
   const [formDayIndex, setFormDayIndex] = useState(2);
   const [formHour, setFormHour] = useState(11);
@@ -107,6 +110,16 @@ export const TherapistCalendarScreen: React.FC<TherapistCalendarScreenProps> = (
       };
       onAddAppointment(newAppt);
       onShowToast(`Cita manual agendada con ${newAppt.patientName} (${hourStr}).`, 'event_available');
+      onRequestEmailReminder({
+        patientName: newAppt.patientName,
+        specialistName: 'Dra. Sofía Mendoza',
+        dateLabel: `${DAYS[formDayIndex].short} ${DAYS[formDayIndex].num} de Octubre, 2024`,
+        timeLabel: hourStr,
+        modalityLabel: formModality === 'virtual' ? 'Virtual (Google Meet)' : 'Presencial (Consultorio 302)',
+        reason: formSubtitle,
+        defaultEmail: formPatientEmail.trim() || undefined,
+      });
+      setFormPatientEmail('');
     }
     setModalMode('none');
   };
@@ -935,16 +948,30 @@ export const TherapistCalendarScreen: React.FC<TherapistCalendarScreenProps> = (
               </div>
 
               {modalMode === 'new-appointment' && (
-                <div>
-                  <label className="text-label-caps text-on-surface-variant block mb-1">
-                    Enfoque / Motivo de Sesión
-                  </label>
-                  <input
-                    value={formSubtitle}
-                    onChange={(e) => setFormSubtitle(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl bg-surface-container-low text-body-sm text-on-surface focus:outline-none"
-                  />
-                </div>
+                <>
+                  <div>
+                    <label className="text-label-caps text-on-surface-variant block mb-1">
+                      Correo del Paciente (para recordatorio Gmail)
+                    </label>
+                    <input
+                      type="email"
+                      value={formPatientEmail}
+                      onChange={(e) => setFormPatientEmail(e.target.value)}
+                      placeholder="paciente@ejemplo.com"
+                      className="w-full px-3 py-2.5 rounded-xl bg-surface-container-low text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/30"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-label-caps text-on-surface-variant block mb-1">
+                      Enfoque / Motivo de Sesión
+                    </label>
+                    <input
+                      value={formSubtitle}
+                      onChange={(e) => setFormSubtitle(e.target.value)}
+                      className="w-full px-3 py-2.5 rounded-xl bg-surface-container-low text-body-sm text-on-surface focus:outline-none"
+                    />
+                  </div>
+                </>
               )}
 
               <div className="grid grid-cols-2 gap-space-sm">

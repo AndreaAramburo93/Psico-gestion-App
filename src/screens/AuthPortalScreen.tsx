@@ -5,11 +5,13 @@ import { SafeImage } from '../components/SafeImage';
 
 interface AuthPortalScreenProps {
   onAuthenticated: (mode: PortalMode, destination: ScreenRoute, userName?: string) => void;
+  onGoogleSignIn: () => Promise<boolean>;
   onShowToast: (msg: string, icon?: string) => void;
 }
 
 export const AuthPortalScreen: React.FC<AuthPortalScreenProps> = ({
   onAuthenticated,
+  onGoogleSignIn,
   onShowToast,
 }) => {
   const [authMode, setAuthMode] = useState<'register' | 'login'>('register');
@@ -41,10 +43,17 @@ export const AuthPortalScreen: React.FC<AuthPortalScreenProps> = ({
     onAuthenticated(targetMode, targetRoute, fullName.trim() || undefined);
   };
 
-  const handleSocialAuth = (provider: string) => {
+  const handleSocialAuth = async (provider: string) => {
     const targetMode: PortalMode = role === 'patient' ? 'patient' : 'clinical';
     const targetRoute: ScreenRoute =
       role === 'patient' ? 'mis-citas-paciente' : 'agenda-y-calendario-terapeutico';
+    if (provider === 'Google') {
+      const ok = await onGoogleSignIn();
+      if (ok) {
+        onAuthenticated(targetMode, targetRoute);
+      }
+      return;
+    }
     onShowToast(`Autenticado vía ${provider} con cifrado de grado clínico.`, 'verified_user');
     onAuthenticated(targetMode, targetRoute);
   };
